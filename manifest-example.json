@@ -1,0 +1,97 @@
+{
+  // manifest的版本，最新的版本为3，但最常用的为2，本文也会围绕2的版本进行介绍
+  "manifest_version": 2,
+  // 插件的名称
+  "name": "hello world extension",
+  // 插件的版本号
+  "version": "1.0.0",
+  // 插件描述
+  "description": "hello world extension demo",
+  // 默认语言
+  "default_locale": "zh_CN",
+  // 图标定义
+  // 16x16 用于当作插件的页面图标
+  // 48x48的 用于在扩展程序管理界面(chrome://extensions)中进行展示
+  // 128x128 用于安装extension程序的时候进行展示
+  // 图标格式虽然没有限制，但一般使用PNG格式
+  "icons": {
+    // "16": "img/icon.png",
+    // "48": "img/icon.png",
+    // "128": "img/icon.png"
+  },
+  // 一直运行在后台的常驻脚本/页面
+  "background": {
+    // 可以使用 page：html 或者 script：[js] 中的其中一项进行配置
+    // 当配置了scripts选项时，插件会自动生成一个后台页面承载这些js
+    // "page": "background.html",
+    // "scripts": ["js/background.js"]
+    // 决定当前的background的生命周期
+    // 当persistent为true时，此background属于background page，生命周期与浏览器一致
+    // 当persistent为false时，此background属于event page，只会在需要的时候存活
+    // "persistent": true
+  },
+  // 浏览器右上角图标设置
+  "browser_action": {
+    // "default_icon": "img/icon.png",
+    // hover的标题
+    // "default_title": "hello world！",
+    // 点击后展示的页面
+    // "default_popup": "popup.html"
+  },
+  // 与browser_action不同的是，page_action只有在访问某些页面的时候才会显示
+  // 以及图标会显示在地址栏右侧
+  // "page_action": {
+  //   "default_icon": "img/icon.png",
+  //   "default_title": "hello world！",
+  //   "default_popup": "popup.html"
+  // },
+  // 注入到浏览器页面中的内容，可访问页面dom，但与页面原有的js不共用作用域
+  "content_scripts": [
+    {
+      // 只在访问的页面地址匹配matches中的字段时，才会进行注入
+      //"matches": ["http://*/*", "https://*/*"],
+      // "<all_urls>" 表示匹配所有地址
+      // "matches": ["<all_urls>"],
+      // 注入的js
+      // "js": ["js/content-script.js"],
+      // 注入的css
+      // "css": ["css/content-script.css"],
+      // 注入的时机，可选： "document_start", "document_end", or "document_idle"，默认document_idle
+      // "run_at": "document_start"
+    },
+    // 可以配置多个规则
+    {
+      // "matches": ["www.baidu.com"],
+      // "js": ["js/content-script2.js"]
+    }
+  ],
+  // 在background中使用到的chrome api，需要进行授权后才可使用
+  "permissions": [
+    // "contextMenus", // 右键菜单
+    // "tabs", // 标签
+    // "notifications", // 通知
+    // "webRequest", // web请求拦截
+    // "storage", // 插件本地存储
+    // "http://*/*" // 可以通过executeScript或者insertCSS访问的网站
+  ],
+  // 浏览器页面中是无法直接访问插件中的资源的
+  // 需要将需要访问的资源列表配置到web_accessible_resources中才能够进行访问
+  // "web_accessible_resources": ["js/inject.js"],
+  // 开发者或者插件主页设置
+  // "homepage_url": "https://www.baidu.com",
+  // 覆盖浏览器默认页面
+  "chrome_url_overrides": {
+    // // 覆盖浏览器默认的新标签页
+    // "newtab": "newtab.html",
+    // // 覆盖历史记录页面
+    // "history": "history.html",
+    // // 覆盖书签管理页
+    // "bookmarks": "bookmarks.html"
+  },
+  // 插件配置页
+  "options_ui": {
+    // "page": "options.html",
+    // // 是否添加添加默认的样式
+    // "chrome_style": true
+  }
+}
