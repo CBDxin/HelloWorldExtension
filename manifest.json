@@ -23,12 +23,15 @@
     // hover的标题
     "default_title": "hello world！",
     // 点击后展示的页面
-    "default_popup": "popup.html"
+    "default_popup": "helloWorldPopup.html"
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+H",
+        "mac": "MacCtrl+Shift+H"
+      },
+      "description": "打开 helloWorldPopup.html"
+    }
   }
-  // 地址栏旁边的图标配置
-  // "page_action": {
-  //   "default_icon": "img/icon.png",
-  //   "default_title": "hello world！",
-  //   "default_popup": "popup.html"
-  // }
 }
