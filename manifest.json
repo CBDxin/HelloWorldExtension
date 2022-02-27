@@ -18,13 +18,13 @@
     "128": "img/icon.png"
   },
   // 浏览器右上角图标配置
-  "browser_action": {
-    "default_icon": "img/icon.png",
-    // hover的标题
-    "default_title": "hello world！",
-    // 点击后展示的页面
-    "default_popup": "helloWorldPopup.html"
-  },
+  // "browser_action": {
+  //   "default_icon": "img/icon.png",
+  //   // hover的标题
+  //   "default_title": "hello world！",
+  //   // 点击后展示的页面
+  //   "default_popup": "helloWorldPopup.html"
+  // },
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
@@ -33,5 +33,42 @@
       },
       "description": "打开 helloWorldPopup.html"
     }
-  }
+  },
+  "background": {
+    "scripts": ["js/background.js"]
+  },
+  // 在background中使用到的chrome api，需要进行授权后才可使用
+  "permissions": [
+    "contextMenus",
+    "notifications",
+    "declarativeContent",
+    "tabs",
+    "webRequest", // web请求拦截
+    "webRequestBlocking", // 阻塞式web请求
+    "http://*/*", // 可以通过executeScript或者insertCSS访问的网站
+    "https://*/*" // 可以通过executeScript或者insertCSS访问的网站
+  ],
+  //page_action 与 browser_action 在同一份配置中只能出现一个
+  //地址栏旁边的图标配置
+  "page_action": {
+    "default_icon": "img/icon.png",
+    "default_title": "hello world！",
+    "default_popup": "helloWorldPopup.html"
+  },
+  "content_scripts": [
+    {
+      // 只在访问的页面地址匹配matches中的字段时，才会进行注入
+      "matches": ["https://weibo.com/*"],
+      // 注入的js
+      "js": ["js/content.js"]
+      // 注入的css
+      // "css": ["css/content-script.css"],
+      // 注入的时机，可选： "document_start", "document_end", or "document_idle"，默认document_idle
+      // "run_at": "document_start"
+    }
+  ],
+  // 浏览器页面中是无法直接访问插件中的资源的
+  // 需要将需要访问的资源列表配置到web_accessible_resources中才能够进行访问
+  "web_accessible_resources": ["helloWorldPopup.html"]
+  // 在background中使用到的chrome api，需要进行授权后才可使用
 }
